@@ -54,7 +54,7 @@ Authors: David Fisher and Li Fuyue.
 #     will be making a formula like this...
 #
 #   Time (seconds) = Distance (inches, as input from the user) / Speed (inches/second, as converted based on user input)
-#   t = d / (0.01130 * w)
+#   t = d / (0.01100 * w)
 
 #   Note: To repeat again, in later modules you will learn different (better) ways to travel a given distance using
 #     motor encoders, so just make a simple rough approximation here, since later we'll do it better in a different way.
@@ -119,7 +119,7 @@ def main():
         distance = int(input("Distance to travel (inches): "))
         left_motor.run_forever(speed_sp=left_and_right_sp)
         right_motor.run_forever(speed_sp=left_and_right_sp)
-        time.sleep(distance / (0.01130 * left_and_right_sp))
+        time.sleep(distance / (0.01100 * left_and_right_sp))
         left_motor.stop()
         right_motor.stop(stop_action="brake")
 
