@@ -119,7 +119,7 @@ def main():
         distance = int(input("Distance to travel (inches): "))
         if distance == 0:
             break
-            
+
         left_motor.run_forever(speed_sp=left_and_right_sp)
         right_motor.run_forever(speed_sp=left_and_right_sp)
         time.sleep(distance / (0.01100 * left_and_right_sp))
