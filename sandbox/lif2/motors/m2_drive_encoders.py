@@ -51,9 +51,9 @@ import time
 
 def main():
     print("--------------------------------------------")
-    print("  Time Driving")
+    print("  Drive using encoders")
     print("--------------------------------------------")
-    ev3.Sound.speak("Time Driving").wait()
+    ev3.Sound.speak("Drive using encoders").wait()
 
     # Connect two large motors on output ports B and C
     left_motor = ev3.LargeMotor(ev3.OUTPUT_B)
@@ -73,18 +73,19 @@ def main():
         if distance == 0:
             break
 
-        left_motor.run_to_rel_pos(position_sp=distance, speed_sp=left_and_right_sp)
-        right_motor.run_to_rel_pos(position_sp=distance, speed_sp=left_and_right_sp)
+        left_motor.run_to_rel_pos(position_sp=distance * 90, speed_sp=left_and_right_sp,
+                                  stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+        right_motor.run_to_rel_pos(position_sp=distance * 90, speed_sp=left_and_right_sp,
+                                   stop_action=ev3.Motor.STOP_ACTION_BRAKE)
         left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         right_motor.wait_while(ev3.Motor.STATE_RUNNING)
-
+        ev3.Sound.beep().wait()
 
         #left_motor.run_forever(speed_sp=left_and_right_sp)
         #right_motor.run_forever(speed_sp=left_and_right_sp)
         #time.sleep(distance / (0.01100 * left_and_right_sp))
         #left_motor.stop()
         #right_motor.stop(stop_action="brake")
-        ev3.Sound.beep().wait()
 
     print("Goodbye!")
     ev3.Sound.speak("Goodbye").wait()
