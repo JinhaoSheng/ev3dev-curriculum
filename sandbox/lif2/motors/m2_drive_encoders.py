@@ -42,7 +42,7 @@ Authors: David Fisher and Li Fuyue.
 
 # TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
 #
-# Observations you should make, run_to_rel_pos is easier to use since it uses encoders that are independent of speed.
+# Observations you should make, run_to_rel_pos iqs easier to use since it uses encoders that are independent of speed.
 
 
 import ev3dev.ev3 as ev3
