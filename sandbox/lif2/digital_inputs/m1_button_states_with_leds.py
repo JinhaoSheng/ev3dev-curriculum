@@ -52,7 +52,6 @@ def main():
                   ev3.Leds.AMBER]
 
     current_color_index = 0
-    n = 0
     while True:
         # DONE: 3. Implement the left, right, and up buttons as follows:
         #    When the up button is being pressed:
