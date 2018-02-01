@@ -53,7 +53,7 @@ def main():
 
     current_color_index = 0
     while True:
-        # TODO: 3. Implement the left, right, and up buttons as follows:
+        # DONE: 3. Implement the left, right, and up buttons as follows:
         #    When the up button is being pressed:
         #      -- print the word "up"
         #      -- turn off all LEDs
@@ -97,6 +97,21 @@ def main():
         # Also observe that we don't use the Enter button.  Enter can cause issues since your program is running at the
         #   same time as the Brickman operating system.  Both are receiving the button events.  That can be changed, but
         #   it's too much trouble to do here.  So instead we just don't use the Enter button.
+
+        if btn.up:
+            print('up')
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.BLACK)
+        if btn.left:
+            print('left')
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
+            time.sleep(3)
+        if btn.right:
+            print('right')
+            ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.BLACK)
+            ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
+            time.sleep(3)
 
         if btn.backspace:
             break
