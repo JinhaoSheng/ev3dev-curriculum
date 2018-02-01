@@ -4,7 +4,7 @@ In this module you will use the touch sensor to make arm movements.  Instead of 
 fix the existing code, which is FULL of bugs.
 
 Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 import ev3dev.ev3 as ev3
 import time
@@ -73,14 +73,16 @@ def arm_calibration(arm_motor, touch_sensor):
     #   Set the arm encoder position to 0 (the last line below is correct to do that, it's new so no bug there)
 
     # Code that attempts to do this task but has MANY bugs (nearly 1 on every line).  Fix them!
-    arm_motor.run_forever(speed_sp=100)
-    while not touch_sensor:
+    arm_motor.run_forever(speed_sp=900)
+    while not touch_sensor.is_pressed:
         time.sleep(0.01)
     arm_motor.stop(stop_action="coast")
+    ev3.Sound.beep()
 
     arm_revolutions_for_full_range = 14.2
     arm_motor.run_to_rel_pos(position_sp=-arm_revolutions_for_full_range)
     arm_motor.wait_while(ev3.Motor.STATE_STALLED)
+    ev3.Sound.beep()
 
     arm_motor.position = 0  # Calibrate the down position as 0 (this line is correct as is).
 

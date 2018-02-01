@@ -50,7 +50,32 @@ def main():
     #   .on_left to call handle_left_button (that function does not exist yet, you will write it in todo4)
     #   .on_right to call handle_right_button (that function does not exist yet, you will write it in todo4)
     # Here is one for free...
-    #  btn.on_up = handle_up_button
+    btn.on_up = handle_up_button
+    while True:
+        btn.process()
+        time.sleep(0.05)
+        break
+
+    btn.on_down = handle_down_button
+    while True:
+        btn.process()
+        time.sleep(0.05)
+        break
+
+    btn.on_left = handle_left_button
+    while True:
+        btn.process()
+        time.sleep(0.05)
+        break
+
+    btn.on_right = handle_right_button
+    while True:
+        btn.process()
+        time.sleep(0.05)
+        break
+
+
+
 
     # TODO: 5. Note #4 is lower (this is TO DO #5 which you should do after #4).
     # Add a lambda callback for on_backspace.  The syntax of lambda is:
@@ -65,6 +90,8 @@ def main():
 
     print("Goodbye!")
     ev3.Sound.speak("Goodbye").wait()
+
+    btn.on_backspace = lambda: handle_shutdown:
 
 
 # ----------------------------------------------------------------------
@@ -89,6 +116,27 @@ def handle_up_button(button_state):
     else:
         print("Up button was released")
 
+def handle_down_button(button_state):
+    """Handle IR / button event."""
+    if button_state:
+        print("Down button is pressed")
+    else:
+        print("Down button was released")
+
+def handle_left_button(button_state):
+    """Handle IR / button event."""
+    if button_state:
+        print("Left button is pressed")
+    else:
+        print("Left button was released")
+
+def handle_right_button(button_state):
+    """Handle IR / button event."""
+    if button_state:
+        print("Right button is pressed")
+    else:
+        print("Right button was released")
+
 
 # TODO: 6. Implement the handle_shutdown function.
 #   Function signature should be:
@@ -102,6 +150,13 @@ def handle_up_button(button_state):
 # You can also change the print message that said:
 #    "Press Ctrl C on your keyboard to exit this program (the Back button is not wired up to exit)"
 # to instead say "Press Back to exit this program."
+
+def handle_right_button(button_state):
+    """Handle IR / button event."""
+    if button_state:
+        print("Right button is pressed")
+    else:
+        print("Right button was released")
 
 
 # TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
