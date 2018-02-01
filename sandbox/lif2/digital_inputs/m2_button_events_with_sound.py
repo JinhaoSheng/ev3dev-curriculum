@@ -91,7 +91,7 @@ def main():
     print("Goodbye!")
     ev3.Sound.speak("Goodbye").wait()
 
-    btn.on_backspace = lambda: handle_shutdown:
+    btn.on_backspace = lambda state: handle_shutdown(state, dc)
 
 
 # ----------------------------------------------------------------------
@@ -151,12 +151,11 @@ def handle_right_button(button_state):
 #    "Press Ctrl C on your keyboard to exit this program (the Back button is not wired up to exit)"
 # to instead say "Press Back to exit this program."
 
-def handle_right_button(button_state):
+def handle_shutdown(button_state, dc):
     """Handle IR / button event."""
     if button_state:
-        print("Right button is pressed")
-    else:
-        print("Right button was released")
+        print("back")
+        dc.running = False
 
 
 # TODO: 7. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.
