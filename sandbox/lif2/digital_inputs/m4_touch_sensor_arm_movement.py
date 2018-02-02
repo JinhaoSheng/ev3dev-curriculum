@@ -80,7 +80,7 @@ def arm_calibration(arm_motor, touch_sensor):
     ev3.Sound.beep().wait()
 
     arm_revolutions_for_full_range = 14.2
-    arm_motor.run_to_rel_pos(position_sp=-arm_revolutions_for_full_range*360, speed_sp=MAX_SPEED)
+    arm_motor.run_to_rel_pos(position_sp=-arm_revolutions_for_full_range * 360, speed_sp=MAX_SPEED)
     arm_motor.wait_while(ev3.Motor.STATE_RUNNING)
     ev3.Sound.beep().wait()
 
@@ -103,7 +103,7 @@ def arm_up(arm_motor, touch_sensor):
     # Make a beep sound
 
     # Code that attempts to do this task but has many bugs.  Fix them!
-    arm_motor.run_to_rel_pos(position_sp=14.2*360, speed_sp=MAX_SPEED)
+    arm_motor.run_to_rel_pos(position_sp=14.2 * 360, speed_sp=MAX_SPEED)
     while not touch_sensor.is_pressed:
         time.sleep(0.01)
     arm_motor.stop(stop_action="brake")
