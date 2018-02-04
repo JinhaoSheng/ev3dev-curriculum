@@ -80,3 +80,13 @@ class Snatch3r(object):
         self.arm_motor.run_to_abs_pos(position_sp=0)
         self.arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor finishes running
         ev3.Sound.beep().wait()
+
+    def shut_down(self):
+        """Shuts down the robot to exit the program."""
+        self.left_motor.stop(stop_action="brake")
+        self.right_motor.stop(stop_action="brake")
+        self.arm_motor.stop(stop_action="brake")
+        ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
+        ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
+        print("Goodbye!")
+        ev3.Sound.speak("Goodbye").wait()
