@@ -90,7 +90,7 @@ def main():
         rc2.process()
         time.sleep(0.01)
 
-    # TODO: 2. Have everyone talk about this problem together then pick one  member to modify libs/robot_controller.py
+    # DONE: 2. Have everyone talk about this problem together then pick one  member to modify libs/robot_controller.py
     # as necessary to implement the method below as per the instructions in the opening doc string. Once the code has
     # been tested and shown to work, then have that person commit their work.  All other team members need to do a
     # VCS --> Update project...
@@ -110,7 +110,7 @@ def press_red_up_button(button_state, robot):
         ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
         robot.left_motor.run_forever(600)
     elif not button_state:
-        ev3.stop(stop_action="brake")
+        robot.left_motor.stop(stop_action="brake")
 
 
 def press_red_down_button(button_state, robot):
@@ -118,7 +118,7 @@ def press_red_down_button(button_state, robot):
         ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.RED)
         robot.left_motor.run_forever(-600)
     elif not button_state:
-        ev3.stop(stop_action="brake")
+        robot.left_motor.stop(stop_action="brake")
 
 
 def press_blue_up_button(button_state, robot):
@@ -126,7 +126,7 @@ def press_blue_up_button(button_state, robot):
         ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
         robot.right_motor.run_forever(600)
     elif not button_state:
-        ev3.stop(stop_action="brake")
+        robot.right_motor.stop(stop_action="brake")
 
 
 def press_blue_down_button(button_state, robot):
@@ -134,7 +134,7 @@ def press_blue_down_button(button_state, robot):
         ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
         robot.right_motor.run_forever(-600)
     elif not button_state:
-        ev3.stop(stop_action="brake")
+        robot.right_motor.stop(stop_action="brake")
 
 
 # TODO: 7. When your program is complete, call over a TA or instructor to sign your checkoff sheet and do a code review.
@@ -192,4 +192,6 @@ def handle_shutdown(button_state, dc):
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
+
+
 main()
