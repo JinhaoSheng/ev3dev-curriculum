@@ -129,7 +129,7 @@ def left_mouse_click(event, mqtt_client):
 # ----------------------------------------------------------------------
 def clear(canvas):
     """Clears the canvas contents"""
-    canvas.delete("all")
+    canvas.delete("all") 
 
 
 def quit_program(mqtt_client):
