@@ -70,25 +70,25 @@ def main():
     left_button = ttk.Button(main_frame, text="Left")
     left_button.grid(row=3, column=0)
     # left_button and '<Left>' key
-    forward_button['command'] = lambda: send_left(mqtt_client, left_speed_entry, right_speed_entry)
+    left_button['command'] = lambda: send_left(mqtt_client, left_speed_entry, right_speed_entry)
     root.bind('<Left>', lambda event: send_left(mqtt_client, left_speed_entry, right_speed_entry))
 
     stop_button = ttk.Button(main_frame, text="Stop")
     stop_button.grid(row=3, column=1)
     # stop_button and '<space>' key (note, does not need left_speed_entry, right_speed_entry)
-    forward_button['command'] = lambda: send_stop(mqtt_client)
+    stop_button['command'] = lambda: send_stop(mqtt_client)
     root.bind('<space>', lambda event: send_stop(mqtt_client))
 
     right_button = ttk.Button(main_frame, text="Right")
     right_button.grid(row=3, column=2)
     # right_button and '<Right>' key
-    forward_button['command'] = lambda: send_right(mqtt_client, left_speed_entry, right_speed_entry)
+    right_button['command'] = lambda: send_right(mqtt_client, left_speed_entry, right_speed_entry)
     root.bind('<Right>', lambda event: send_right(mqtt_client, left_speed_entry, right_speed_entry))
 
     back_button = ttk.Button(main_frame, text="Back")
     back_button.grid(row=4, column=1)
     # back_button and '<Down>' key
-    forward_button['command'] = lambda: send_back(mqtt_client, left_speed_entry, right_speed_entry)
+    back_button['command'] = lambda: send_back(mqtt_client, left_speed_entry, right_speed_entry)
     root.bind('<Down>', lambda event: send_back(mqtt_client, left_speed_entry, right_speed_entry))
 
     up_button = ttk.Button(main_frame, text="Up")
@@ -126,17 +126,17 @@ def main():
 # Motor command callbacks
 def send_forward(mqtt_client, left_speed_entry, right_speed_entry):
     print("forward")
-    mqtt_client.send_message("drive forever", [left_speed_entry.get(), right_speed_entry.get()])
+    mqtt_client.send_message("drive", [left_speed_entry.get(), right_speed_entry.get()])
 
 
 def send_left(mqtt_client, left_speed_entry, right_speed_entry):
     print("left")
-    mqtt_client.send_message("drive forever", [-left_speed_entry.get(), right_speed_entry.get()])
+    mqtt_client.send_message("drive", [left_speed_entry.get(), right_speed_entry.get()])
 
 
 def send_right(mqtt_client, left_speed_entry, right_speed_entry):
     print("right")
-    mqtt_client.send_message("drive forever", [left_speed_entry.get(), -right_speed_entry.get()])
+    mqtt_client.send_message("drive", [left_speed_entry.get(), right_speed_entry.get()])
 
 
 def send_stop(mqtt_client):
@@ -146,7 +146,7 @@ def send_stop(mqtt_client):
 
 def send_back(mqtt_client, left_speed_entry, right_speed_entry):
     print("back")
-    mqtt_client.send_message("drive forever", [-left_speed_entry.get(), -right_speed_entry.get()])
+    mqtt_client.send_message("drive", [left_speed_entry.get(), right_speed_entry.get()])
 
 
 # Arm command callbacks
