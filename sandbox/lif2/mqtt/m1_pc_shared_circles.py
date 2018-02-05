@@ -16,15 +16,15 @@ In addition to the MQTT goals, this example will show some tkinter tricks:
   -- How to draw circles onto a Tkinter Canvas.
 
 Authors: David Fisher and PUT_YOUR_NAME_HERE.
-"""  # TODO: 1. PUT YOUR NAME IN THE ABOVE LINE.
+"""  # DONE: 1. PUT YOUR NAME IN THE ABOVE LINE.
 
 
-# TODO: 2. Select one team member to open libs/mqtt_remote_method_calls.py and complete the TO DO that is in that file.
+# DONE: 2. Select one team member to open libs/mqtt_remote_method_calls.py and complete the TO DO that is in that file.
 # After making that change, they should commit their work and all other team members should do a VCS -> Update
 # After all team members see that file changed you can move on to the next TO DO
 # Also someone should update the libs/mqtt_remote_method_calls.py file on the robot too (at some point before zhangz12).
 
-# TODO: 3. Run this program as is on your computer and watch the logs as you click in the window.
+# DONE: 3. Run this program as is on your computer and watch the logs as you click in the window.
 # Next see if you can review the code to see how it works.  You can do this individually or as a team.
 
 
@@ -32,7 +32,7 @@ import tkinter
 from tkinter import ttk
 
 
-# TODO: 4. Uncomment the code below.  It imports a library and creates a relatively simple class.
+# DONE: 4. Uncomment the code below.  It imports a library and creates a relatively simple class.
 # The constructor receives a Tkinter Canvas and the one and only method draws a circle on that canvas at a given XY.
 
 import mqtt_remote_method_calls as com
@@ -75,7 +75,7 @@ def main():
     quit_button["command"] = lambda: quit_program(mqtt_client)
 
     # Create an MQTT connection
-    # TODO: 5. Delete the line below (mqtt_client = None) then uncomment the code below.  It creates a real mqtt client.
+    # DONE: 5. Delete the line below (mqtt_client = None) then uncomment the code below.  It creates a real mqtt client.
     my_delegate = MyDelegate(canvas)
     mqtt_client = com.MqttClient(my_delegate)
     mqtt_client.connect("draw", "draw")
@@ -91,7 +91,7 @@ def left_mouse_click(event, mqtt_client):
     """ Draws a circle onto the canvas (one way or another). """
     print("You clicked location ({},{})".format(event.x, event.y))
 
-    # TODO: 6. Talk to your team members and have everyone pick a unique color.
+    # DONE: 6. Talk to your team members and have everyone pick a unique color.
     # Examples... "red", "green", "blue", "yellow", "aquamarine", "magenta", "navy", "orange"
     my_color = "red"  # Make your color unique
 
@@ -103,7 +103,7 @@ def left_mouse_click(event, mqtt_client):
     #                    fill=my_color, width=3)
     # Repeated: If you uncommented the code above to test it, make sure to comment it back out before todo7 below.
     # MQTT draw
-    # TODO: 7. Send a message using MQTT that will:
+    # DONE: 7. Send a message using MQTT that will:
     #   - Call the method called "on_circle_draw" on the delegate at the other end of the pipe.
     #   - Pass the parameters [my_color, event.x, event.y] as a list.
     # This is the only TO DO you have to think about.  It is meant to help you learn the mqtt_client.send_message syntax
@@ -111,11 +111,11 @@ def left_mouse_click(event, mqtt_client):
     # All of your teammates should receive the message and create a circle of your color at your click location.
     # Additionally you will receive your own message and draw a circle in your color too.
     mqtt_client.send_message("on_circle_draw", [my_color, event.x, event.y])
-    # TODO: 8. Help get everyone on your team running this program at the same time.
+    # DONE: 8. Help get everyone on your team running this program at the same time.
     # You should be able to see circles on your computer from everyone else on your team.
     # Try to draw the first letter of your name in circles. :)
 
-    # TODO: 9. Call over a TA or instructor to sign your team's checkoff sheet.
+    # DONE: 9. Call over a TA or instructor to sign your team's checkoff sheet.
     #
     # Observations you should make, with MQTT your team can hear your messages.
     # You published messages to the "legoXX/draw" topic (where XX is the number set in libs/mqtt_remote_method_calls.py)
@@ -129,7 +129,7 @@ def left_mouse_click(event, mqtt_client):
 # ----------------------------------------------------------------------
 def clear(canvas):
     """Clears the canvas contents"""
-    canvas.delete("all") 
+    canvas.delete("all")
 
 
 def quit_program(mqtt_client):
