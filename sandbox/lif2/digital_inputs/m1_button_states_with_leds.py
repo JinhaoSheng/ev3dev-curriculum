@@ -133,7 +133,7 @@ def main():
                 ev3.Leds.set_color(ev3.Leds.LEFT, led_colors[0])
                 ev3.Leds.set_color(ev3.Leds.RIGHT, led_colors[0])
                 time.sleep(1)
-            current_color_index += 1 
+            current_color_index += 1
 
         if btn.backspace:
             break
