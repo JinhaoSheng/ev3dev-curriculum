@@ -108,32 +108,32 @@ def main():
 def press_red_up_button(button_state, robot):
     if button_state:
         ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.GREEN)
-        robot.left_motor.run_forever(600)
-    elif not button_state:
+        robot.left_motor.run_forever(speed_sp=600)
+    else:
         robot.left_motor.stop(stop_action="brake")
 
 
 def press_red_down_button(button_state, robot):
     if button_state:
         ev3.Leds.set_color(ev3.Leds.LEFT, ev3.Leds.RED)
-        robot.left_motor.run_forever(-600)
-    elif not button_state:
+        robot.left_motor.run_forever(speed_sp=-600)
+    else:
         robot.left_motor.stop(stop_action="brake")
 
 
 def press_blue_up_button(button_state, robot):
     if button_state:
         ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.GREEN)
-        robot.right_motor.run_forever(600)
-    elif not button_state:
+        robot.right_motor.run_forever(speed_sp=600)
+    else:
         robot.right_motor.stop(stop_action="brake")
 
 
 def press_blue_down_button(button_state, robot):
     if button_state:
         ev3.Leds.set_color(ev3.Leds.RIGHT, ev3.Leds.RED)
-        robot.right_motor.run_forever(-600)
-    elif not button_state:
+        robot.right_motor.run_forever(speed_sp=-600)
+    else:
         robot.right_motor.stop(stop_action="brake")
 
 
