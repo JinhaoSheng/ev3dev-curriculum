@@ -35,6 +35,7 @@ def main():
     # DONE: 2. Setup an mqtt_client.  Notice that since you don't need to receive any messages you do NOT need to have
     # a MyDelegate class.  Simply construct the MqttClient with no parameter in the constructor (easy).
     mqtt_client = com.MqttClient()
+    mqtt_client.connect_to_ev3()
     # mqtt_client = None # Delete this line, it was added temporarily so that the code we gave you had no errors.
 
     root = tkinter.Tk()
@@ -116,7 +117,7 @@ def main():
 # ----------------------------------------------------------------------
 # Tkinter callbacks
 # ----------------------------------------------------------------------
-# TODO: 4. Implement the functions for the drive button callbacks.
+# DONE: 4. Implement the functions for the drive button callbacks.
 
 # TODO: 5. Call over a TA or instructor to sign your team's checkoff sheet and do a code review.  This is the final one!
 #
@@ -131,12 +132,12 @@ def send_forward(mqtt_client, left_speed_entry, right_speed_entry):
 
 def send_left(mqtt_client, left_speed_entry, right_speed_entry):
     print("left")
-    mqtt_client.send_message("drive", [left_speed_entry.get(), right_speed_entry.get()])
+    mqtt_client.send_message("drive", [-int(left_speed_entry.get()), right_speed_entry.get()])
 
 
 def send_right(mqtt_client, left_speed_entry, right_speed_entry):
     print("right")
-    mqtt_client.send_message("drive", [left_speed_entry.get(), right_speed_entry.get()])
+    mqtt_client.send_message("drive", [left_speed_entry.get(), -int(right_speed_entry.get())])
 
 
 def send_stop(mqtt_client):
@@ -146,7 +147,7 @@ def send_stop(mqtt_client):
 
 def send_back(mqtt_client, left_speed_entry, right_speed_entry):
     print("back")
-    mqtt_client.send_message("drive", [left_speed_entry.get(), right_speed_entry.get()])
+    mqtt_client.send_message("drive", [-int(left_speed_entry.get()), -int(right_speed_entry.get())])
 
 
 # Arm command callbacks

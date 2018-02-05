@@ -53,10 +53,12 @@ class Snatch3r(object):
         ev3.Sound.beep().wait()
 
     def drive(self, left_speed_entry, right_speed_entry):
+        """Drive robot running."""
         self.left_motor.run_forever(speed_sp=left_speed_entry)
         self.right_motor.run_forever(speed_sp=right_speed_entry)
 
     def stop(self):
+        """stops robot running."""
         self.left_motor.stop(stop_action="brake")
         self.right_motor.stop(stop_action="brake")
 
