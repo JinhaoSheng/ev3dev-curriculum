@@ -69,7 +69,7 @@ class Snatch3r(object):
 
     def arm_up(self):
         """Moves the Snatch3r arm to the up position."""
-        self.arm_motor.run_to_rel_pos(position_sp=14.2 * 360, speed_sp=self.MAX_SPEED)
+        self.arm_motor.run_forever(speed_sp=self.MAX_SPEED)
         while not self.touch_sensor.is_pressed:
             time.sleep(0.01)
         self.arm_motor.stop(stop_action="brake")
