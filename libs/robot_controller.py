@@ -110,4 +110,3 @@ class Snatch3r(object):
         self.running = True
         while self.running:
             time.sleep(0.1)  # Do nothing (except receive MQTT messages) until an MQTT message calls shutdown.
-
