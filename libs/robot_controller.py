@@ -13,6 +13,7 @@
 
 import ev3dev.ev3 as ev3
 import time
+import math
 
 
 class Snatch3r(object):
@@ -119,3 +120,50 @@ class Snatch3r(object):
         self.running = True
         while self.running:
             time.sleep(0.1)  # Do nothing (except receive MQTT messages) until an MQTT message calls shutdown.
+
+    def seek_beacon(self):
+        """Uses the IR Sensor in BeaconSeeker mode to find the beacon."""
+        beacon_seeker = ev3.BeaconSeeker(channel=1)
+        forward_speed = 300
+        turn_speed = 100
+
+        while not self.touch_sensor.is_pressed:
+            # The touch sensor can be used to abort the attempt (sometimes handy during testing)
+            current_heading = 0  # use the beacon_seeker heading
+            current_distance = 0  # use the beacon_seeker distance
+            if beacon_seeker.distance == -128:
+                # If the IR Remote is not found just sit idle for this program until it is moved.
+                print("IR Remote not found. Distance is -128")
+                self.drive(-100, 100)
+            else:
+                if math.fabs(beacon_seeker.heading) < 2:
+                    # Close enough of a heading to move forward
+                    print("On the right heading. Distance: ", beacon_seeker.distance)
+                    if beacon_seeker.distance == current_distance:
+                        # Find the beacon and pick it up
+                        self.arm_calibration()
+                        return True
+                    if beacon_seeker.distance > current_distance:
+                        # Drive straight forward
+                        self.drive(forward_speed, forward_speed)
+
+                if 2 < math.fabs(beacon_seeker.heading) < 10:
+                    if beacon_seeker.heading < current_heading:
+                        self.drive(-turn_speed, turn_speed)
+                    if beacon_seeker.heading > current_heading:
+                        self.drive(turn_speed, -turn_speed)
+
+                if math.fabs(beacon_seeker.heading) > 10:
+                    self.drive(-100, 100)
+                    print("Heading too far off")
+
+                print("On the right heading. Distance: ", beacon_seeker.distance)
+                print("Adjusting heading: ", beacon_seeker.heading)
+                print("Heading is too far off to fix: ", beacon_seeker.heading)
+
+            time.sleep(0.2)
+
+        # The touch_sensor was pressed to abort the attempt if this code runs.
+        print("Abandon ship!")
+        self.stop()
+        return False
