@@ -34,7 +34,7 @@ def main():
                 # beacon" if the return value is True.  (i.e. don't say "Found the beacon" if the attempts was cancelled.)
             if did_find_beacon:
                 ev3.Sound.speak("Found the beacon")
-
+                robot.stop()
             command = input("Hit enter to seek the beacon again or enter q to quit: ")
             if command == "q":
                 break
@@ -90,10 +90,11 @@ def seek_beacon(robot):
             # Here is some code to help get you started
             if math.fabs(current_heading) < 2:
                 # Close enough of a heading to move forward
-                print("On the right heading. Distance: ", beacon_seeker.distance)
+                print("On the right heading. Distance: ", current_distance)
                 # You add more!
                 if current_distance == 0:
                     # Find the beacon
+                    print("you have found the beacon")
                     return True
                 else:
                     # Drive straight forward
@@ -102,16 +103,14 @@ def seek_beacon(robot):
             elif 2 <= math.fabs(current_heading) < 10:
                 if current_heading < 0:
                     robot.drive(-turn_speed, turn_speed)
+                    print("Adjusting heading: ", current_heading)
                 elif current_heading > 0:
+                    print("Adjusting heading: ", current_heading)
                     robot.drive(turn_speed, -turn_speed)
 
             elif math.fabs(current_heading) > 10:
                 robot.stop()
-                print("Heading too far off")
-
-            print("On the right heading. Distance: ", current_distance)
-            print("Adjusting heading: ", current_heading)
-            print("Heading is too far off to fix: ", current_heading)
+                print("Heading is too far off to fix: ", current_heading)
 
         time.sleep(0.2)
 
