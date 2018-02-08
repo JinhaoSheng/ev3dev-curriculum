@@ -129,37 +129,37 @@ class Snatch3r(object):
 
         while not self.touch_sensor.is_pressed:
             # The touch sensor can be used to abort the attempt (sometimes handy during testing)
-            current_heading = 0  # use the beacon_seeker heading
-            current_distance = 0  # use the beacon_seeker distance
+            current_heading = beacon_seeker.heading  # use the beacon_seeker heading
+            current_distance = beacon_seeker.distance  # use the beacon_seeker distance
             if beacon_seeker.distance == -128:
                 # If the IR Remote is not found just sit idle for this program until it is moved.
                 print("IR Remote not found. Distance is -128")
-                self.drive(-100, 100)
+                self.dirve(-turn_speed, turn_speed)
             else:
-                if math.fabs(beacon_seeker.heading) < 2:
+                if math.fabs(current_heading) < 2:
                     # Close enough of a heading to move forward
                     print("On the right heading. Distance: ", beacon_seeker.distance)
-                    if beacon_seeker.distance == current_distance:
-                        # Find the beacon and pick it up
-                        self.arm_calibration()
+                    # You add more!
+                    if current_distance == 0:
+                        # Find the beacon
                         return True
-                    if beacon_seeker.distance > current_distance:
+                    else:
                         # Drive straight forward
                         self.drive(forward_speed, forward_speed)
 
-                if 2 < math.fabs(beacon_seeker.heading) < 10:
-                    if beacon_seeker.heading < current_heading:
+                elif 2 <= math.fabs(current_heading) < 10:
+                    if current_heading < 0:
                         self.drive(-turn_speed, turn_speed)
-                    if beacon_seeker.heading > current_heading:
+                    elif current_heading > 0:
                         self.drive(turn_speed, -turn_speed)
 
-                if math.fabs(beacon_seeker.heading) > 10:
-                    self.drive(-100, 100)
+                elif math.fabs(current_heading) > 10:
+                    self.dirve(-turn_speed, turn_speed)
                     print("Heading too far off")
 
-                print("On the right heading. Distance: ", beacon_seeker.distance)
-                print("Adjusting heading: ", beacon_seeker.heading)
-                print("Heading is too far off to fix: ", beacon_seeker.heading)
+                print("On the right heading. Distance: ", current_distance)
+                print("Adjusting heading: ", current_heading)
+                print("Heading is too far off to fix: ", current_heading)
 
             time.sleep(0.2)
 
