@@ -141,7 +141,7 @@ def press_blue_down_button(button_state, robot):
         robot.right_motor.stop(stop_action="brake")
 
 
-# TODO: 7. When your program is complete, call over a TA or instructor to sign your checkoff sheet and do a code review.
+# DONE: 7. When your program is complete, call over a TA or instructor to sign your checkoff sheet and do a code review.
 #
 # Observations you should make, IR buttons are a fun way to control the robot.
 
