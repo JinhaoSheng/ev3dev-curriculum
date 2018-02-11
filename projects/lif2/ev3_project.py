@@ -5,6 +5,8 @@ import time
 
 
 def main():
+    ev3.Sound.speak('I am seeking my little brother, please give me the color key.')
+
     robot = robo.Snatch3r()
     mqtt_client = com.MqttClient(robot)
     mqtt_client.connect_to_pc()
