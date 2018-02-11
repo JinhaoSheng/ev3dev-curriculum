@@ -140,7 +140,7 @@ class Snatch3r(object):
                     # Close enough of a heading to move forward
                     print("On the right heading. Distance: ", current_distance)
                     if current_distance == 0:
-                        self.stop()
+                        self.drive_inches(1, 100)
                         return True
                     else:
                         self.drive(forward_speed, forward_speed)
