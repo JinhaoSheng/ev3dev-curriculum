@@ -64,12 +64,12 @@ def main():
     root.bind('<Down>', lambda event: send_back(mqtt_client, left_speed_entry, right_speed_entry))
 
     up_button = ttk.Button(main_frame, text="Up")
-    up_button.grid(row=5, column=0)
+    up_button.grid(row=5, column=1)
     up_button['command'] = lambda: send_up(mqtt_client)
     root.bind('<u>', lambda event: send_up(mqtt_client))
 
     down_button = ttk.Button(main_frame, text="Down")
-    down_button.grid(row=6, column=0)
+    down_button.grid(row=6, column=1)
     down_button['command'] = lambda: send_down(mqtt_client)
     root.bind('<j>', lambda event: send_down(mqtt_client))
 
@@ -82,12 +82,18 @@ def main():
     e_button.grid(row=6, column=2)
     e_button['command'] = (lambda: quit_program(mqtt_client, True))
 
-    root.mainloop()
+    # Button for seeking the beacon
+    seek_beacon_button = ttk.q_button = ttk.Button(main_frame, text="Seek beacon")
+    seek_beacon_button.grid(row=5, column=0)
+    seek_beacon_button['command'] = (lambda: seek_beacon(mqtt_client))
+    root.bind('<s>', lambda event: seek_beacon(mqtt_client))
 
+    root.mainloop()
 
 # ----------------------------------------------------------------------
 # Tkinter callbacks
 # ----------------------------------------------------------------------
+
 
 # Motor command callbacks
 def send_forward(mqtt_client, left_speed_entry, right_speed_entry):
@@ -133,6 +139,12 @@ def quit_program(mqtt_client, shutdown_ev3):
         mqtt_client.send_message("shutdown")
     mqtt_client.close()
     exit()
+
+
+# Seek_beacon button callback
+def seek_beacon(mqtt_client):
+    print("seek_beacon")
+    mqtt_client.send_message("seek_beacon")
 
 
 # ----------------------------------------------------------------------
