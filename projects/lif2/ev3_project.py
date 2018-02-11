@@ -12,8 +12,10 @@ def main():
     mqtt_client.connect_to_pc()
     robot.loop_forever()  # Calls a function that has a while True: loop within it to avoid letting the program end.
 
-    btn = ev3.Button()
+    btn = robot.Button()
     color_to_seek = 0
+
+    ev3.Leds.all_off()
 
     if btn.up:
         ev3.Sound.speak('I can only pass the black card.')
@@ -50,14 +52,9 @@ def main():
     while robot.color_sensor.color != color_to_seek:
         robot.stop()
 
-    found_beacon = robot.seek_beacon()
-    if found_beacon:
-        ev3.Sound.speak("I got the beacon")
-
 # ----------------------------------------------------------------------
 # Calls  main  to start the ball rolling.
 # ----------------------------------------------------------------------
 
 
 main()
-

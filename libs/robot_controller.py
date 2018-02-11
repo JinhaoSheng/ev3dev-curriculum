@@ -28,6 +28,7 @@ class Snatch3r(object):
         self.color_sensor = ev3.ColorSensor()
         self.ir_sensor = ev3.InfraredSensor()
         self.pixy = ev3.Sensor(driver_name="pixy-lego")
+        self.button = ev3.Button
 
         self.MAX_SPEED = 900
         self.running = True
