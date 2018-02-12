@@ -28,6 +28,7 @@ class Snatch3r(object):
         self.color_sensor = ev3.ColorSensor()
         self.ir_sensor = ev3.InfraredSensor()
         self.pixy = ev3.Sensor(driver_name="pixy-lego")
+        self.color_key = ""
 
         self.MAX_SPEED = 900
         self.running = True
@@ -141,6 +142,7 @@ class Snatch3r(object):
                     print("On the right heading. Distance: ", current_distance)
                     if current_distance == 0:
                         self.drive_inches(1, 100)
+                        ev3.Sound.speak("I find my little brother.").wait()
                         return True
                     else:
                         self.drive(forward_speed, forward_speed)
@@ -163,3 +165,31 @@ class Snatch3r(object):
         print("Abandon ship!")
         self.stop()
         return False
+
+    def set_led(self, led_side_string, led_color_string):
+        ev3.Sound.speak("I get the {} color key".format(led_color_string))
+        led_side = None
+        if led_side_string == "left":
+            led_side = ev3.Leds.LEFT
+        elif led_side_string == "right":
+            led_side = ev3.Leds.RIGHT
+
+        led_color = None
+        if led_color_string == "green":
+            led_color = ev3.Leds.GREEN
+            self.color_key = ev3.ColorSensor.COLOR_GREEN
+        elif led_color_string == "red":
+            led_color = ev3.Leds.RED
+            self.color_key = ev3.ColorSensor.COLOR_RED
+        elif led_color_string == "black":
+            led_color = ev3.Leds.BLACK
+            self.color_key = ev3.ColorSensor.COLOR_BLACK
+        elif led_color_string == "yellow":
+            led_color = ev3.Leds.YELLOW
+            self.color_key = ev3.ColorSensor.COLOR_YELLOW
+
+        if led_side is None or led_color is None:
+            print("Invalid parameters sent to set_led. led_side_string = {} led_color_string = {}".format(
+                led_side_string, led_color_string))
+        else:
+            ev3.Leds.set_color(led_side, led_color)
