@@ -25,11 +25,8 @@ def main():
     btn.on_right = lambda state: handle_button_press(state, mqtt_client, "Don't be afraid.")
     btn.on_backspace = lambda state: handle_shutdown(state, my_delegate)
 
-    print(my_delegate.running)
-
     while my_delegate.running:
         btn.process()
-        print(".", end='')
         time.sleep(0.1)
         if my_delegate.color_key != my_delegate.color_sensor.color:
             my_delegate.stop()
@@ -42,7 +39,6 @@ def main():
 # ----------------------------------------------------------------------
 def handle_button_press(button_state, mqtt_client, message):
     """Handle IR / button event."""
-    print(button_state)
     if button_state:
         ev3.Sound.speak(message).wait()
         mqtt_client.send_message("button_pressed", [message])
