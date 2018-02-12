@@ -9,13 +9,13 @@ def main():
     print(" Seeking my little brother.")
     print("--------------------------------------------")
     ev3.Sound.speak("I am seeking my little brother, please give me the color key.").wait()
+    ev3.Leds.all_off()
 
     robot = robo.Snatch3r()
     my_delegate = robot
     mqtt_client = com.MqttClient(my_delegate)
     my_delegate.mqtt_client = mqtt_client
     mqtt_client.connect_to_pc()
-    my_delegate.loop_forever()
 
     # Buttons on EV3
     btn = ev3.Button()
@@ -25,9 +25,12 @@ def main():
     btn.on_right = lambda state: handle_button_press(state, mqtt_client, "Don't be afraid.")
     btn.on_backspace = lambda state: handle_shutdown(state, my_delegate)
 
+    print(my_delegate.running)
+
     while my_delegate.running:
         btn.process()
-        time.sleep(0.01)
+        print(".", end='')
+        time.sleep(0.1)
         if my_delegate.color_key != my_delegate.color_sensor.color:
             my_delegate.stop()
 
@@ -39,7 +42,9 @@ def main():
 # ----------------------------------------------------------------------
 def handle_button_press(button_state, mqtt_client, message):
     """Handle IR / button event."""
+    print(button_state)
     if button_state:
+        ev3.Sound.speak(message).wait()
         mqtt_client.send_message("button_pressed", [message])
 
 

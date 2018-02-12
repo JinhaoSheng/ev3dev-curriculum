@@ -1,7 +1,6 @@
 import mqtt_remote_method_calls as com
 import tkinter
 from tkinter import ttk
-import ev3dev.ev3 as ev3
 
 
 class MyDelegateOnThePc(object):
@@ -11,7 +10,6 @@ class MyDelegateOnThePc(object):
         self.display_label = label_to_display_messages_in
 
     def button_pressed(self, message):
-        ev3.Sound.speak(message).wait()
         self.display_label.configure(text=message)
 
 
