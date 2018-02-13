@@ -143,6 +143,7 @@ class Snatch3r(object):
                     if current_distance == 0:
                         self.drive_inches(1, 100)
                         ev3.Sound.speak("I find my little brother.").wait()
+                        ev3.Sound.speak("I want to give him a hug.").wait()
                         return True
                     else:
                         self.drive(forward_speed, forward_speed)

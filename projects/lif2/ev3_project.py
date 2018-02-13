@@ -28,8 +28,11 @@ def main():
     while my_delegate.running:
         btn.process()
         time.sleep(0.1)
-        if my_delegate.color_key != my_delegate.color_sensor.color:
-            my_delegate.stop()
+
+        # Only pass the color which you set initially, if this does not work, change it to drive to color method.
+        while my_delegate.color_key != my_delegate.color_sensor.color:
+            my_delegate.turn_degrees(90, 100)
+            ev3.Sound.speak("I don't get the right color key.").wait()
 
     ev3.Sound.speak("Goodbye").wait()
 
