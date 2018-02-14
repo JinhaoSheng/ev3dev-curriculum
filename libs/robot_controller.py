@@ -141,9 +141,11 @@ class Snatch3r(object):
                     # Close enough of a heading to move forward
                     print("On the right heading. Distance: ", current_distance)
                     if current_distance == 0:
-                        self.drive_inches(1, 100)
                         ev3.Sound.speak("I find my little brother.").wait()
+                        ev3.Leds.all_off()
+                        time.sleep(0.1)
                         ev3.Sound.speak("I want to give him a hug.").wait()
+                        self.drive_inches(2, 100)
                         return True
                     else:
                         self.drive(forward_speed, forward_speed)
@@ -169,6 +171,7 @@ class Snatch3r(object):
 
     def set_led(self, led_side_string, led_color_string):
         ev3.Sound.speak("I get the {} color key".format(led_color_string))
+        time.sleep(0.1)
         led_side = None
         if led_side_string == "left":
             led_side = ev3.Leds.LEFT

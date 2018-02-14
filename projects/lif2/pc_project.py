@@ -129,7 +129,7 @@ def main():
     seek_beacon_button = ttk.Button(main_frame, text="Seek beacon")
     seek_beacon_button.grid(row=6, column=4)
     seek_beacon_button['command'] = lambda: seek_beacon(mqtt_client)
-    root.bind('<s>', lambda event: send_down(mqtt_client))
+    root.bind('<s>', lambda event: seek_beacon(mqtt_client))
 
     # Buttons for quit and exit
     q_button = ttk.Button(main_frame, text="Quit")

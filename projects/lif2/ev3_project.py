@@ -31,8 +31,10 @@ def main():
         # Stop at the color card which you set initially, if this does not work, change it to drive to color method.
         if my_delegate.color_key == my_delegate.color_sensor.color:
             my_delegate.stop()
-            ev3.Sound.speak("I get the right color key to the door to add fuel.").wait()
+            ev3.Sound.speak("I get the right color key to the door to add petrol.").wait()
             time.sleep(5)
+            my_delegate.drive_inches(7, 100)
+            time.sleep(0.1)
 
     ev3.Sound.speak("Goodbye").wait()
 
