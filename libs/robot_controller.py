@@ -145,7 +145,6 @@ class Snatch3r(object):
                         ev3.Leds.all_off()
                         self.stop()
                         time.sleep(0.1)
-                        ev3.Sound.speak("I want to give him a hug.").wait()
                     else:
                         self.drive(forward_speed, forward_speed)
 
