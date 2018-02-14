@@ -54,9 +54,9 @@ class Snatch3r(object):
 
     def turn_degrees(self, degrees_to_turn, turn_speed_sp):
         """Makes robot do polygon motion."""
-        self.left_motor.run_to_rel_pos(position_sp=-degrees_to_turn * 4.87, speed_sp=turn_speed_sp,
+        self.left_motor.run_to_rel_pos(position_sp=-degrees_to_turn * 4.51, speed_sp=turn_speed_sp,
                                        stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-        self.right_motor.run_to_rel_pos(position_sp=degrees_to_turn * 4.87, speed_sp=turn_speed_sp,
+        self.right_motor.run_to_rel_pos(position_sp=degrees_to_turn * 4.51, speed_sp=turn_speed_sp,
                                         stop_action=ev3.Motor.STOP_ACTION_BRAKE)
         self.left_motor.wait_while(ev3.Motor.STATE_RUNNING)
         self.right_motor.wait_while(ev3.Motor.STATE_RUNNING)
