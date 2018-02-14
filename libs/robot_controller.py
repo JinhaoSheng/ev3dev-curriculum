@@ -142,8 +142,6 @@ class Snatch3r(object):
                     print("On the right heading. Distance: ", current_distance)
                     if current_distance == 0:
                         self.stop()
-                        ev3.Sound.speak("I find my little brother.").wait()
-                        ev3.Leds.all_off()
                         return True
                     else:
                         self.drive(forward_speed, forward_speed)
