@@ -144,7 +144,6 @@ class Snatch3r(object):
                         ev3.Sound.speak("I find my little brother.").wait()
                         ev3.Leds.all_off()
                         self.stop()
-                        time.sleep(0.1)
                     else:
                         self.drive(forward_speed, forward_speed)
 
