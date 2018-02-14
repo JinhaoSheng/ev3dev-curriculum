@@ -28,7 +28,7 @@ class Snatch3r(object):
         self.color_sensor = ev3.ColorSensor()
         self.ir_sensor = ev3.InfraredSensor()
         self.pixy = ev3.Sensor(driver_name="pixy-lego")
-        self.color_key = 0
+        self.color_key = None
 
         self.MAX_SPEED = 900
         self.running = True
@@ -143,9 +143,9 @@ class Snatch3r(object):
                     if current_distance == 0:
                         ev3.Sound.speak("I find my little brother.").wait()
                         ev3.Leds.all_off()
+                        self.stop()
                         time.sleep(0.1)
                         ev3.Sound.speak("I want to give him a hug.").wait()
-                        self.drive_inches(2, 100)
                         return True
                     else:
                         self.drive(forward_speed, forward_speed)

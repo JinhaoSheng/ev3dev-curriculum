@@ -187,7 +187,6 @@ def send_down(mqtt_client):
     print("arm_down")
     mqtt_client.send_message("arm_down")
 
-
 # Beacon seeking callback
 def seek_beacon(mqtt_client):
     print("seek_beacon")
