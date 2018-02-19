@@ -193,3 +193,52 @@ class Snatch3r(object):
                 led_side_string, led_color_string))
         else:
             ev3.Leds.set_color(led_side, led_color)
+
+    def detect_police(self, left_speed_entry, right_speed_entry):
+        spl = int(left_speed_entry)
+        spr = int(right_speed_entry)
+        sp = (spl + spr) / 2
+        self.pixy.mode = "ALL"
+        while not self.touch_sensor.is_pressed:
+
+            x = self.pixy.value(2)
+            y = self.pixy.value(3)
+            width = self.pixy.value(4)
+            print('(X, Y) = ({}, {})'.format(x, y))
+
+            if sp < 500:
+                if width > 0:
+                    if x > 0:
+                        self.left_motor.stop(stop_action="brake")
+                        self.right_motor.stop(stop_action="brake")
+                        ev3.Sound.speak("This is not a big deal").wait()
+                        break
+                    else:
+                        break
+                else:
+                    break
+            else:
+                if width > 0:
+                    if x > 0:
+                        self.left_motor.run_to_rel_pos(position_sp=-180 * 4.51, speed_sp=600,
+                                                       stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+                        self.right_motor.run_to_rel_pos(position_sp=180 * 4.51, speed_sp=600,
+                                                        stop_action=ev3.Motor.STOP_ACTION_BRAKE)
+                        time.sleep(0.1)
+                        ev3.Sound.speak("Run Run Run").wait()
+                        time.sleep(0.1)
+                        x = self.pixy.value(2)
+                        self.left_motor.run_forever(speed_sp=self.MAX_SPEED)
+                        self.right_motor.run_forever(speed_sp=self.MAX_SPEED)
+                        print(x)
+                        if width > 0:
+                            if x > 0:
+                                self.left_motor.stop(stop_action="brake")
+                                self.right_motor.stop(stop_action="brake")
+                                time.sleep(0.5)
+                                ev3.Sound.speak("Game over").wait()
+                                break
+                    else:
+                        break
+                else:
+                    break

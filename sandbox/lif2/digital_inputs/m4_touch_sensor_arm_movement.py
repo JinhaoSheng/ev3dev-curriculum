@@ -123,7 +123,7 @@ def arm_down(arm_motor):
     # Make a beep sound
 
     # Code that attempts to do this task but has bugs.  Fix them.
-    arm_motor.run_to_abs_pos(position_sp=0)
+    arm_motor.run_to_abs_pos(position_sp=0, speed_sp=MAX_SPEED)
     arm_motor.wait_while(ev3.Motor.STATE_RUNNING)  # Blocks until the motor finishes running
     ev3.Sound.beep().wait()
 
