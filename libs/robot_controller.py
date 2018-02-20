@@ -194,51 +194,106 @@ class Snatch3r(object):
         else:
             ev3.Leds.set_color(led_side, led_color)
 
-    def detect_police(self, left_speed_entry, right_speed_entry):
-        spl = int(left_speed_entry)
-        spr = int(right_speed_entry)
-        sp = (spl + spr) / 2
-        self.pixy.mode = "ALL"
-        while not self.touch_sensor.is_pressed:
+    def auto_driving(self):
+        print("--------------------------------------------")
+        print("  Time to Play the Game")
+        print("--------------------------------------------")
+        ev3.Sound.speak("Time To Play The Game").wait()
+        time.sleep(2)
+        COLOR_NAMES = ["None", "Black", "Blue", "Green", "Yellow", "Red", "White", "Brown"]
+        n = 100
 
-            x = self.pixy.value(2)
-            y = self.pixy.value(3)
-            width = self.pixy.value(4)
-            print('(X, Y) = ({}, {})'.format(x, y))
+        for k in range(3):
+            while True:
+                self.left_motor.run_forever(speed_sp=100)
+                self.right_motor.run_forever(speed_sp=100)
+                print(COLOR_NAMES[self.color_sensor.color])
+                if self.color_sensor.color == ev3.ColorSensor.COLOR_BLACK:
+                    if n - 70 > 0:
+                        n = n - 70
+                        # self.left_motor.run_timed(time_sp=1200, speed_sp=100, stop_action="coast")
+                        # self.right_motor.run_timed(time_sp=1200, speed_sp=100, stop_action="coast")
+                        ev3.Sound.speak(n).wait()
+                        time.sleep(1)
+                        break
 
-            if sp < 500:
-                if width > 0:
-                    if x > 0:
-                        self.left_motor.stop(stop_action="brake")
-                        self.right_motor.stop(stop_action="brake")
-                        ev3.Sound.speak("This is not a big deal").wait()
+                    if n - 70 <= 0:
+                        self.left_motor.stop()
+                        self.right_motor.stop()
+                        time.sleep(2)
+                        ev3.Sound.speak("Oops, I Don't Have Enough Points")
+                        # time.sleep(5)
+                        # self.left_motor.run_timed(time_sp=2000, speed_sp=-100, stop_action="coast")
+                        # self.right_motor.run_timed(time_sp=2000, speed_sp=-100, stop_action="coast")
+                        # time.sleep(5)
+                        # self.turn_degrees(90, 70)
+                        # time.sleep(1)
+                        # self.left_motor.run_timed(time_sp=2000, speed_sp=100, stop_action="coast")
+                        # self.right_motor.run_timed(time_sp=2000, speed_sp=100, stop_action="coast")
+                        # self.turn_degrees(90, 70)
+
                         break
-                    else:
+
+                if self.color_sensor.color == ev3.ColorSensor.COLOR_RED:
+                    if n - 30 > 0:
+                        n = n - 30
+                        self.left_motor.run_timed(time_sp=1200, speed_sp=100, stop_action="coast")
+                        self.right_motor.run_timed(time_sp=1200, speed_sp=100, stop_action="coast")
+                        ev3.Sound.speak(n).wait()
+                        time.sleep(1)
                         break
-                else:
-                    break
-            else:
-                if width > 0:
-                    if x > 0:
-                        self.left_motor.run_to_rel_pos(position_sp=-180 * 4.51, speed_sp=600,
-                                                       stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-                        self.right_motor.run_to_rel_pos(position_sp=180 * 4.51, speed_sp=600,
-                                                        stop_action=ev3.Motor.STOP_ACTION_BRAKE)
-                        time.sleep(0.1)
-                        ev3.Sound.speak("Run Run Run").wait()
-                        time.sleep(0.1)
-                        x = self.pixy.value(2)
-                        self.left_motor.run_forever(speed_sp=self.MAX_SPEED)
-                        self.right_motor.run_forever(speed_sp=self.MAX_SPEED)
-                        print(x)
-                        if width > 0:
-                            if x > 0:
-                                self.left_motor.stop(stop_action="brake")
-                                self.right_motor.stop(stop_action="brake")
-                                time.sleep(0.5)
-                                ev3.Sound.speak("Game over").wait()
-                                break
-                    else:
+
+                    if n - 30 <= 0:
+                        ev3.Sound.speak("Oops, I Don't Have Enough Points")
                         break
-                else:
-                    break
+
+                if self.color_sensor.color == ev3.ColorSensor.COLOR_BLUE:
+                    if n - 40 > 0:
+                        n = n - 40
+                        self.left_motor.run_timed(time_sp=1200, speed_sp=100, stop_action="coast")
+                        self.right_motor.run_timed(time_sp=1200, speed_sp=100, stop_action="coast")
+                        ev3.Sound.speak(n).wait()
+                        time.sleep(1)
+                        break
+
+                    if n - 40 <= 0:
+                        ev3.Sound.speak("Oops, I Don't Have Enough Points")
+                        break
+
+                if self.color_sensor.color == ev3.ColorSensor.COLOR_GREEN:
+                    if n - 50 > 0:
+                        n = n - 50
+                        self.left_motor.run_timed(time_sp=1200, speed_sp=100, stop_action="coast")
+                        self.right_motor.run_timed(time_sp=1200, speed_sp=100, stop_action="coast")
+                        ev3.Sound.speak(n).wait()
+                        time.sleep(1)
+                        break
+
+                    if n - 50 <= 0:
+                        ev3.Sound.speak("Oops, I Don't Have Enough Points")
+                        break
+
+                if self.color_sensor.color == ev3.ColorSensor.COLOR_YELLOW:
+                    if n - 20 > 0:
+                        n = n - 20
+                        self.left_motor.run_timed(time_sp=1200, speed_sp=130, stop_action="coast")
+                        self.right_motor.run_timed(time_sp=1200, speed_sp=130, stop_action="coast")
+                        ev3.Sound.speak(n).wait()
+                        time.sleep(1)
+                        break
+
+                    if n - 20 <= 0:
+                        ev3.Sound.speak("Oops, I Don't Have Enough Points")
+                        break
+
+                    if self.touch_sensor.is_pressed:
+                        self.left_motor.stop()
+                        self.right_motor.stop()
+
+        self.left_motor.stop()
+        self.right_motor.stop()
+
+
+
+    def button_pressed(self, message):
+        ev3.Sound.speak(message)

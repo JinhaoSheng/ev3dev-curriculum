@@ -45,7 +45,7 @@ def main():
             # Then here you can use a command like robot.color_sensor.reflected_light_intensity
 
             print("New white level is {}.".format(white_level))
-        elif command_to_run == 'b': 
+        elif command_to_run == 'b':
             print("Calibrate the black light level")
             # DONE: 3. Read the reflected_light_intensity property of the color sensor and set black_level
 
